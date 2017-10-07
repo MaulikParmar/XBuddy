@@ -1,33 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
     x:Class="Bliss.Views.Tracking"
-      xmlns:controls="clr-namespace:Bliss.Controls">
-	<ContentPage.Content>
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Bliss.Controls">
+    <ContentPage.Content>
         <AbsoluteLayout>
-           <!-- <BoxView BackgroundColor="Red" 
-                AbsoluteLayout.LayoutBounds="1,1,1,1" 
+            <!-- <BoxView BackgroundColor="Red"
+                AbsoluteLayout.LayoutBounds="1,1,1,1"
                 AbsoluteLayout.LayoutFlags="All"/>-->
 
             <controls:CameraPreview
-                Camera="Rear"
-                AbsoluteLayout.LayoutBounds="1,1,1,1" 
-                AbsoluteLayout.LayoutFlags="All" />
-             <Image 
-             AbsoluteLayout.LayoutBounds="0.5,0.80,200,200" 
-                AbsoluteLayout.LayoutFlags="PositionProportional">
+                x:Name="cameraControl"
+                AbsoluteLayout.LayoutBounds="1,1,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                Camera="Rear" />
+            <Image AbsoluteLayout.LayoutBounds="0.5,0.80,200,200" AbsoluteLayout.LayoutFlags="PositionProportional">
                 <Image.Source>
                     <OnPlatform x:TypeArguments="ImageSource">
-                        <OnPlatform.iOS><FileImageSource File="web_hi_res_512.png"/></OnPlatform.iOS>
-                        <OnPlatform.Android><FileImageSource File="bliss_icon.png"/></OnPlatform.Android>
-                        <OnPlatform.WinPhone><FileImageSource File="web_hi_res_512.png"/></OnPlatform.WinPhone>
+                        <OnPlatform.iOS>
+                            <FileImageSource File="web_hi_res_512.png" />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <FileImageSource File="bliss_icon.png" />
+                        </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <FileImageSource File="web_hi_res_512.png" />
+                        </OnPlatform.WinPhone>
                     </OnPlatform>
                 </Image.Source>
             </Image>
-            <Button Text="START" BackgroundColor="#F95A30" TextColor="#E6E6E6"
-            AbsoluteLayout.LayoutBounds="0.5,0.95,300,50" 
-                 AbsoluteLayout.LayoutFlags="PositionProportional"
-            />
+            <Button
+                AbsoluteLayout.LayoutBounds="0.5,0.95,300,50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="#F95A30"
+                Text="START"
+                TextColor="#E6E6E6" />
         </AbsoluteLayout>
-	</ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

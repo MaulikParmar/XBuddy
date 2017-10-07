@@ -4,10 +4,17 @@ using Android.Content;
 using Android.Hardware;
 using Android.Runtime;
 using Android.Views;
+using System.IO;
+using Android.Widget;
+using Android.Util;
+using Bliss.Helper;
 
 namespace Bliss.Droid.Controls
 {
-    public sealed class CameraPreview : ViewGroup, ISurfaceHolderCallback
+    public sealed class CameraPreview : ViewGroup, ISurfaceHolderCallback, 
+        Camera.IPictureCallback,
+        Camera.IPreviewCallback,
+        Camera.IShutterCallback
     {
         SurfaceView surfaceView;
         ISurfaceHolder holder;
@@ -15,6 +22,7 @@ namespace Bliss.Droid.Controls
         IList<Camera.Size> supportedPreviewSizes;
         Camera camera;
         IWindowManager windowManager;
+        private Action<byte[]> _tookPhotoCallback;
 
         public bool IsPreviewing { get; set; }
 
@@ -32,9 +40,10 @@ namespace Bliss.Droid.Controls
             }
         }
 
-        public CameraPreview(Context context)
+        public CameraPreview(Context context, Action<byte[]> callBack)
             : base(context)
         {
+            _tookPhotoCallback = callBack;
             surfaceView = new SurfaceView(context);
             AddView(surfaceView);
 
@@ -110,7 +119,7 @@ namespace Bliss.Droid.Controls
 
             Preview.SetParameters(parameters);
             Preview.StartPreview();
-            IsPreviewing = true;
+            IsPreviewing = true;           
         }
 
         Camera.Size GetOptimalPreviewSize(IList<Camera.Size> sizes, int w, int h)
@@ -155,5 +164,88 @@ namespace Bliss.Droid.Controls
 
             return optimalSize;
         }
+
+        public void OnPictureTaken(byte[] data, Camera camera)
+        {
+            if (data != null)
+            {
+                //Preview.StopPreview();
+               _tookPhotoCallback?.Invoke(data);
+                Preview.StartPreview();
+            }
+        }
+
+        public void OnPreviewFrame(byte[] data, Camera camera)
+        {
+           
+        }
+
+        public void OnShutter()
+        {
+           
+        }
+
+        public void TakePic()
+        {
+            // Call to take pic from camera
+            Android.Hardware.Camera.Parameters p = Preview.GetParameters();
+            p.PictureFormat = Android.Graphics.ImageFormatType.Jpeg;
+            //var size = p.PreviewSize;
+            Preview.SetParameters(p);
+            Preview.TakePicture(this, this, this);
+        }
     }
+
+    public class CustomCameraView : FrameLayout,
+        Camera.IPictureCallback,
+        Camera.IPreviewCallback,
+        Camera.IShutterCallback
+    {
+        Android.Graphics.SurfaceTexture _surface;      
+
+        public CustomCameraView(Context context, IAttributeSet attrs) : base(context, attrs)
+        {
+        }
+
+        #region ICustomCameraView interface implementation
+
+       
+        #endregion
+
+        //https://forums.xamarin.com/discussion/17625/custom-camera-takepicture
+        void Camera.IPictureCallback.OnPictureTaken(byte[] data, Android.Hardware.Camera camera)
+        {
+            //File dataDir = Android.OS.Environment.ExternalStorageDirectory;
+            //if (data != null)
+            //{
+            //    try
+            //    {
+            //        var path = dataDir + "/" + pictureName;
+            //        //SaveFile(path, data);
+            //        RotateBitmap(path, data);
+            //        //Callback(path);
+            //    }
+            //    catch (FileNotFoundException e)
+            //    {
+            //        System.Console.Out.WriteLine(e.Message);
+            //    }
+            //    catch (IOException ie)
+            //    {
+            //        System.Console.Out.WriteLine(ie.Message);
+            //    }
+            //}
+        }
+
+
+        void Camera.IPreviewCallback.OnPreviewFrame(byte[] b, Android.Hardware.Camera c)
+        {
+        }
+
+        void Camera.IShutterCallback.OnShutter()
+        {
+        }
+
+
+    }
+
 }

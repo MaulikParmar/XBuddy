@@ -17,7 +17,7 @@ namespace Bliss.Droid.Renderer
 
             if (Control == null)
             {
-                cameraPreview = new Bliss.Droid.Controls.CameraPreview(Context);
+                cameraPreview = new Bliss.Droid.Controls.CameraPreview(Context, OnTookPhoto);
                 SetNativeControl(cameraPreview);
             }
 
@@ -25,14 +25,21 @@ namespace Bliss.Droid.Renderer
             {
                 // Unsubscribe
                 cameraPreview.Click -= OnCameraPreviewClicked;
+                Element.OnTakePhotoRequest -= Element_OnTakePhotoRequest;
             }
             if (e.NewElement != null)
             {
-                Control.Preview = Camera.Open((int)e.NewElement.Camera);
+                Control.Preview = Camera.Open((int)e.NewElement.Camera);               
 
                 // Subscribe
                 cameraPreview.Click += OnCameraPreviewClicked;
+                Element.OnTakePhotoRequest += Element_OnTakePhotoRequest;
             }
+        }
+
+        private void Element_OnTakePhotoRequest(object sender, EventArgs e)
+        {
+            cameraPreview.TakePic();
         }
 
         void OnCameraPreviewClicked(object sender, EventArgs e)
@@ -47,6 +54,11 @@ namespace Bliss.Droid.Renderer
                 cameraPreview.Preview.StartPreview();
                 cameraPreview.IsPreviewing = true;
             }
+        }
+
+        private void OnTookPhoto(byte[] data)
+        {
+            Element.InvokeTookPic(data);
         }
 
         protected override void Dispose(bool disposing)
