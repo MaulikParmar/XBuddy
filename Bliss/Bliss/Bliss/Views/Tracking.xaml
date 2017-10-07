@@ -3,7 +3,9 @@
     x:Class="Bliss.Views.Tracking"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:Bliss.Controls">
+    xmlns:controls="clr-namespace:Bliss.Controls"
+    xmlns:helper="clr-namespace:Bliss.Helper"
+    helper:AutoBindViewModel.IsAutoBind="True">
     <ContentPage.Content>
         <AbsoluteLayout>
             <!-- <BoxView BackgroundColor="Red"
@@ -14,8 +16,12 @@
                 x:Name="cameraControl"
                 AbsoluteLayout.LayoutBounds="1,1,1,1"
                 AbsoluteLayout.LayoutFlags="All"
-                Camera="Rear" />
-            <Image AbsoluteLayout.LayoutBounds="0.5,0.80,200,200" AbsoluteLayout.LayoutFlags="PositionProportional">
+                Camera="Rear"
+                TookPhotoCommand="{Binding TookPhotoCommand}" />
+            <Image
+                x:Name="img"
+                AbsoluteLayout.LayoutBounds="0.5,0.80,200,200"
+                AbsoluteLayout.LayoutFlags="PositionProportional">
                 <Image.Source>
                     <OnPlatform x:TypeArguments="ImageSource">
                         <OnPlatform.iOS>

@@ -3,6 +3,8 @@ using Android.Hardware;
 using Bliss.Droid.Renderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using System.IO;
+using Android.Media;
 
 [assembly: ExportRenderer(typeof(Bliss.Controls.CameraPreview), typeof(CameraPreviewRenderer))]
 namespace Bliss.Droid.Renderer
@@ -44,21 +46,26 @@ namespace Bliss.Droid.Renderer
 
         void OnCameraPreviewClicked(object sender, EventArgs e)
         {
-            if (cameraPreview.IsPreviewing)
-            {
-                cameraPreview.Preview.StopPreview();
-                cameraPreview.IsPreviewing = false;
-            }
-            else
-            {
-                cameraPreview.Preview.StartPreview();
-                cameraPreview.IsPreviewing = true;
-            }
+            //if (cameraPreview.IsPreviewing)
+            //{
+            //    cameraPreview.Preview.StopPreview();
+            //    cameraPreview.IsPreviewing = false;
+            //}
+            //else
+            //{
+            //    cameraPreview.Preview.StartPreview();
+            //    cameraPreview.IsPreviewing = true;
+            //}
         }
 
         private void OnTookPhoto(byte[] data)
         {
-            Element.InvokeTookPic(data);
+            if (data != null && data.Length > 0)
+                Element.InvokeTookPic(data);
+
+            //ExifInterface ei = new ExifInterface(new MemoryStream(data));
+            //int orientation = ei.GetAttributeInt(ExifInterface.TagOrientation, ExifInterface.);
+
         }
 
         protected override void Dispose(bool disposing)
@@ -68,6 +75,15 @@ namespace Bliss.Droid.Renderer
                 Control.Preview.Release();
             }
             base.Dispose(disposing);
+        }
+
+        static byte[] GetImageAsByteArray(string imageFilePath)
+        {
+            FileStream fileStream = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read);
+            BinaryReader binaryReader = new BinaryReader(fileStream);
+            return binaryReader.ReadBytes((int)fileStream.Length);
+
+            
         }
     }
 }

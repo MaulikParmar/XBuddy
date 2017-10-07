@@ -86,7 +86,7 @@ namespace Bliss.Droid.Controls
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(@"			ERROR: ", ex.Message);
+                System.Diagnostics.Debug.WriteLine(@"ERROR: ", ex.Message);
             }
         }
 
@@ -170,7 +170,7 @@ namespace Bliss.Droid.Controls
             if (data != null)
             {
                 //Preview.StopPreview();
-               _tookPhotoCallback?.Invoke(data);
+                _tookPhotoCallback?.Invoke(data);
                 Preview.StartPreview();
             }
         }
