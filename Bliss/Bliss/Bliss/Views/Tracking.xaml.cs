@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace Bliss.Views
 {
-    public partial class Home : ContentPage
+    public partial class Tracking : ContentPage
     {
-        public Home()
+        public Tracking()
         {
             InitializeComponent();
         }

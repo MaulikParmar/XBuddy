@@ -1,22 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Bliss.Views.Home"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:Bliss.Controls">
     <ContentPage.Content>
-        <Grid>
-            <controls:CameraPreview
-                Camera="Rear"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand" />
+   <Grid BackgroundColor="#617F8A">
 
-            <StackLayout BackgroundColor="Transparent" VerticalOptions="Start">
-                <Label
-                    FontSize="Large"
-                    Text="Hi this a demo text from xamarin buddy!"
-                    TextColor="Red" />
-            </StackLayout>
+   <StackLayout Orientation="Vertical"  Margin="20,50,20,20" Spacing="10">
+                <Image >
+                 <Image.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <OnPlatform.iOS><FileImageSource File="web_hi_res_512.png"/></OnPlatform.iOS>
+                        <OnPlatform.Android><FileImageSource File="bliss_icon.png"/></OnPlatform.Android>
+                        <OnPlatform.WinPhone><FileImageSource File="web_hi_res_512.png"/></OnPlatform.WinPhone>
+                    </OnPlatform>
+                </Image.Source>
+                </Image>
+       <Label Text="Customer name :" TextColor="Black" FontSize="12"/>
+        <Entry Placeholder="XYZ" HeightRequest="35"/>
+             <Label Text="Customer mobile number :" TextColor="Black" FontSize="12"/>
+        <Entry Placeholder="XXXXXXXXXX" HeightRequest="35"/>
+                <Button Text="Submit" BackgroundColor="#F95A30" TextColor="#E6E6E6"/>
+        </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
