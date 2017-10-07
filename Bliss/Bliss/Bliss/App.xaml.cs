@@ -13,7 +13,7 @@ namespace Bliss
         {
             InitializeComponent();
 
-            MainPage = new Bliss.Views.Home();
+            MainPage = new Bliss.Views.Tracking();
         }
 
         protected override void OnStart()

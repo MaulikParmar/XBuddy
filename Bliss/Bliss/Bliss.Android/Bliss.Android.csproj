@@ -115,6 +115,9 @@
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\bliss_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bliss_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\bliss_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -126,7 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bliss\Bliss.csproj">
-      <Project>{f377abb5-1ce2-485f-8359-342b3927a603}</Project>
+      <Project>{0202875D-50E1-45C7-9B95-ED2615B8F1EE}</Project>
       <Name>Bliss</Name>
     </ProjectReference>
   </ItemGroup>
